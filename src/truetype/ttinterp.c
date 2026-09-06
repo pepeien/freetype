@@ -2271,9 +2271,12 @@
       exc->moveVector.x = exc->GS.freeVector.x * 4;
       exc->moveVector.y = exc->GS.freeVector.y * 4;
     }
-    else if ( -0x400L < F_dot_P && F_dot_P < 0x400L )
+    else if ( -0x1555L < F_dot_P && F_dot_P < 0x1555L )
     {
-      /* prohibitively orthogonal */
+      /* prohibitively near-orthogonal; the empirical limit avoids */
+      /* bad rendering in Palatino without negative consequences   */
+      FT_TRACE3(( "F_dot_P = %.2f, too small for valid movement.\n",
+                   F_dot_P / 16384.));
       exc->moveVector.x = 0;
       exc->moveVector.y = 0;
     }
